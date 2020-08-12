@@ -116,7 +116,21 @@ class LinkedList:
         temp.next = next 
   
         return linked_list
-
+    """ General operations - reverse, search and sorting linked list """
+    def reverse_list(self, linked_list):
+        print('In reverse list')
+        if linked_list is None:
+            return None
+        temp = None
+        current = linked_list 
+        while(current is not None): 
+            next = current.next
+            current.next = temp 
+            temp = current 
+            current = next
+        linked_list = temp 
+        return linked_list
+        
 if __name__ == "__main__":
     ll = LinkedList()
     linkedList = ll.insert_at_start(1)
@@ -136,5 +150,5 @@ if __name__ == "__main__":
 
     linkedList = ll.delete_at_end(linkedList)
     ll.print_linked_list(linkedList)
-    linkedList = ll.delete_at_index(4, linkedList)
+    linkedList = ll.reverse_list(linkedList)
     ll.print_linked_list(linkedList)
