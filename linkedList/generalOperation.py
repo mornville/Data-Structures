@@ -16,7 +16,7 @@ class LinkedList:
             print(itr.val)
             itr = itr.next
 
-    """ Functions for all insert types """
+    """ --------- Functions for all insert types --------- """
 
     def insert_at_start(self, val, linked_list=None):
         print('Insert at start')
@@ -56,7 +56,7 @@ class LinkedList:
 
         return linked_list
 
-    """ Function for all delete types """
+    """ --------- Function for all delete types --------- """
 
     def delete_at_start(self, linked_list=None):
         print('Delete at start')
@@ -116,7 +116,50 @@ class LinkedList:
         temp.next = next 
   
         return linked_list
-    """ General operations - reverse, search and sorting linked list """
+
+    def delete_by_value(self, val, linked_list):
+        print('In delete by value')
+        if not linked_list:
+            return None
+        node = linked_list
+        prev = node
+        while node is not None:
+            if prev.val == val:
+                prev = node
+                node = node.next
+                if node.next is not None and node.next.next is not None:
+                    node.val = node.next.val
+                    node.next = node.next.next
+                elif node.next is not None and node.next.next is None:
+                    node.val = node.next.val
+                    node.next = None
+                else:
+                    prev.next = None
+            else:
+                print('In else')
+                node = node.next       
+        return linked_list
+
+    """ --------- length of string recursive and iterative --------- """
+
+    def length_of_list(self, linked_list):
+        print('Comparing length of linked list Iterative')
+        if not linked_list:
+            return 0
+        cur = linked_list
+        count = 1
+        while cur.next is not None:
+            count +=1
+            cur = cur.next
+        return count
+    ## Recursion  
+    def length_of_list_recursive(self, linked_list):
+        if not linked_list:
+            return 0
+        return 1 + self.length_of_list_recursive(linked_list.next)
+            
+    """ --------- General operations - reverse, search and sorting linked list --------- """
+    ## Reverse list
     def reverse_list(self, linked_list):
         print('In reverse list')
         if linked_list is None:
@@ -131,11 +174,27 @@ class LinkedList:
         linked_list = temp 
         return linked_list
         
+    ## Get node by index
+    def get_node_by_index(self, linked_list, index):
+        print('Getting node by index')
+    
+        temp = linked_list
+        if index<0:
+            return 'INvalid index'
+        while index>1 and temp is not None:
+            temp = temp.next
+            index-=1
+        if(temp is None):
+            return 'No value at given index'
+        return temp.val
+
 if __name__ == "__main__":
     ll = LinkedList()
     linkedList = ll.insert_at_start(1)
     linkedList = ll.insert_at_start(10, linkedList)
     linkedList = ll.insert_at_start(102, linkedList)
+    linkedList = ll.insert_at_start(102, linkedList)
+
     linkedList = ll.insert_at_start(99, linkedList)
     ll.print_linked_list(linkedList)
 
@@ -150,5 +209,10 @@ if __name__ == "__main__":
 
     linkedList = ll.delete_at_end(linkedList)
     ll.print_linked_list(linkedList)
-    linkedList = ll.reverse_list(linkedList)
+    # linkedList = ll.reverse_list(linkedList)
+    # linkedList = ll.delete_by_value(99 , linkedList)
     ll.print_linked_list(linkedList)
+    print(ll.length_of_list_recursive (linkedList))
+
+    # Getting value of list by index
+    print(ll.get_node_by_index(linkedList, 6))
