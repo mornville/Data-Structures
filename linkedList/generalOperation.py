@@ -7,7 +7,7 @@ class Node:
 class LinkedList:
     def print_linked_list(self, linked_list):
         """ To print linked list """
-        print("Printing")
+        print(" ***** Printing ***** ")
         if linked_list is None:
             print('Empty list')
             return
@@ -19,13 +19,13 @@ class LinkedList:
     """ --------- Functions for all insert types --------- """
 
     def insert_at_start(self, val, linked_list=None):
-        print('Insert at start')
+        print(' ***** Insert at start ***** ')
         newNode = Node(val)
         newNode.next = linked_list
         return newNode
 
     def insert_at_end(self, val, linked_list=None):
-        print('Insert at end')
+        print(' ***** Insert at end ***** ')
         newNode = Node(val)
         if linked_list is None:
             self.insert_at_start(val)
@@ -59,7 +59,7 @@ class LinkedList:
     """ --------- Function for all delete types --------- """
 
     def delete_at_start(self, linked_list=None):
-        print('Delete at start')
+        print(' ***** Delete at start ***** ')
         if linked_list is None:
             return None
         print(f'deleted Value: {linked_list.val}')
@@ -68,7 +68,7 @@ class LinkedList:
         return linked_list
 
     def delete_at_end(self, linked_list=None):
-        print('delete at end')
+        print(' ***** delete at end ***** ')
         if linked_list is None:
             return None
 
@@ -81,44 +81,43 @@ class LinkedList:
                 return linked_list
 
     def delete_at_index(self, position, linked_list=None):
-        # If linked list is empty 
-        if linked_list == None: 
-            return  None
-  
-        # Store head node 
-        temp = linked_list 
-  
-        # If head needs to be removed 
-        if position == 0: 
+        # If linked list is empty
+        if linked_list == None:
+            return None
+
+        # Store head node
+        temp = linked_list
+
+        # If head needs to be removed
+        if position == 0:
             linked_list = temp.next
             temp = None
-            return 
-  
-        # Find previous node of the node to be deleted 
-        for i in range(position -1 ): 
-            temp = temp.next
-            if temp is None: 
-                break
-  
-        # If position is more than number of nodes 
-        if temp is None or temp.next is None: 
-            print('Not found')
-            return linked_list 
+            return
 
-  
-        # Node temp.next is the node to be deleted 
-        # store pointer to the next of node to be deleted 
+        # Find previous node of the node to be deleted
+        for i in range(position - 1):
+            temp = temp.next
+            if temp is None:
+                break
+
+        # If position is more than number of nodes
+        if temp is None or temp.next is None:
+            print('Not found')
+            return linked_list
+
+        # Node temp.next is the node to be deleted
+        # store pointer to the next of node to be deleted
         next = temp.next.next
-  
-        # Unlink the node from linked list 
+
+        # Unlink the node from linked list
         temp.next = None
-  
-        temp.next = next 
-  
+
+        temp.next = next
+
         return linked_list
 
     def delete_by_value(self, val, linked_list):
-        print('In delete by value')
+        print(' ***** In delete by value ***** ')
         if not linked_list:
             return None
         node = linked_list
@@ -136,60 +135,96 @@ class LinkedList:
                 else:
                     prev.next = None
             else:
-                print('In else')
-                node = node.next       
+                node = node.next
         return linked_list
 
     """ --------- General operations ---------- """
 
     # 1.1 Length of linked list - iterative
     def length_of_list(self, linked_list):
-        print('Comparing length of linked list Iterative')
+        print(' ***** Comparing length of linked list Iterative ***** ')
         if not linked_list:
             return 0
         cur = linked_list
         count = 1
         while cur.next is not None:
-            count +=1
+            count += 1
             cur = cur.next
         return count
-    
+
     # 1.1 Length of linked list - recursive
     def length_of_list_recursive(self, linked_list):
         if not linked_list:
             return 0
         return 1 + self.length_of_list_recursive(linked_list.next)
-            
-    ## 2. Reverse list - iterative
+
+    # 2. Reverse list - iterative
     def reverse_list(self, linked_list):
-        print('In reverse list')
+        print(' ***** In reverse list ***** ')
         if linked_list is None:
             return None
         temp = None
-        current = linked_list 
-        while(current is not None): 
+        current = linked_list
+        while(current is not None):
             next = current.next
-            current.next = temp 
-            temp = current 
+            current.next = temp
+            temp = current
             current = next
-        linked_list = temp 
+        linked_list = temp
         return linked_list
-        
-    ## 3. Get node by index
+
+    # 3.1 Get node by index
     def get_node_by_index(self, linked_list, index):
-        print('Getting node by index')
-    
+        print(' ***** Getting node by index *****')
+
         temp = linked_list
-        if index<0:
+        if index < 0:
             return 'Invalid index'
-        while index>1 and temp is not None:
+        while index > 1 and temp is not None:
             temp = temp.next
-            index-=1
+            index -= 1
         if(temp is None):
             return 'No value at given index'
         return temp.val
 
-    ## 4.1 Search - iterative 
+    # 3.2.1 Nth node from end - method 1 - two pointer
+    def get_node_from_end_method_1(self, linked_list, index):
+        print(' ***** Getting node from end *****')
+        if index < 1:
+            return 'index value should not be less than 1'
+        temp = linked_list  # reference pointer
+        head = linked_list  # pointer value to be returned
+        count = 1
+        if linked_list is not None:
+            while count < index:
+                if temp.next is None:
+                    return f'value at index {index} not found'
+                temp = temp.next
+                count += 1
+
+        # move head pointer until temp pointer becomes null
+        while temp.next is not None:
+            temp = temp.next
+            head = head.next
+
+        return f'Value is {head.val}'
+
+    # 3.2.2 Nth node from end - method 2 - calculating lenght and subtracing index
+
+    def get_node_from_end_method_2(self, linked_list, index):
+        print(' ***** Getting node from end method 2 *****')
+        if index < 1:
+            return 'index value should not be less than 1'
+        temp = linked_list  # reference pointer
+        length_of_list = self.length_of_list_recursive(linked_list)
+        new_index = length_of_list - index
+        while new_index > 0:
+            temp = temp.next
+            new_index -=1
+
+        return f'Value is {temp.val}'
+
+    # 4.1 Search - iterative
     def search_iterative(self, linked_list, val):
         if linked_list is None:
             return False
@@ -202,7 +237,7 @@ class LinkedList:
             temp = temp.next
         return 'Not found'
 
-    ## 4.2 Search - recursive
+    # 4.2 Search - recursive
     def search_recursive(self, linked_list, val, index=0):
         temp = linked_list
         index+=1
@@ -246,3 +281,5 @@ if __name__ == "__main__":
     print(ll.search_iterative(linkedList, 102))    
     # Search recursive
     print(ll.search_recursive(linkedList, 999))
+    print(ll.get_node_from_end_method_1(linkedList,3))
+    print(ll.get_node_from_end_method_2(linkedList, 3))
