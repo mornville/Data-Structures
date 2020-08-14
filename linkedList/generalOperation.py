@@ -247,7 +247,58 @@ class LinkedList:
             return f'Found at index {index} by recursion'
         
         return self.search_recursive(temp.next, val, index)
-            
+
+    # 5. Print middle of the linked node
+    def print_middle(self, linked_list):
+        slow = linked_list
+        fast = linked_list
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+        return f"Middle node value is : {slow.val}"
+
+    # 6. Swap two nodes x and y by changing links
+    def swap(self, linked_list, x, y):
+        print(' ***** Swapping *****')
+        
+        # Nothing to do if x and y are same 
+        if x == y: 
+            return 
+  
+        # Search for x (keep track of prevX and CurrX) 
+        prevX = None
+        currX = linked_list
+        while currX != None and currX.val != x: 
+            prevX = currX 
+            currX = currX.next
+  
+        # Search for y (keep track of prevY and currY) 
+        prevY = None
+        currY = linked_list 
+        while currY != None and currY.val != y: 
+            prevY = currY 
+            currY = currY.next
+  
+        # If either x or y is not present, nothing to do 
+        if currX == None or currY == None: 
+            return 
+        # If x is not head of linked list 
+        if prevX != None: 
+            prevX.next = currY 
+        else: #make y the new head 
+            linked_list = currY 
+  
+        # If y is not head of linked list 
+        if prevY != None: 
+            prevY.next = currX 
+        else: # make x the new head 
+            linked_list = currX 
+  
+        # Swap next pointers 
+        temp = currX.next
+        currX.next = currY.next
+        currY.next = temp 
+        return linked_list
 if __name__ == "__main__":
     ll = LinkedList()
     linkedList = ll.insert_at_start(1)
@@ -262,7 +313,7 @@ if __name__ == "__main__":
     ll.print_linked_list(linkedList)
     linkedList = ll.insert_at_index(999, 5, linkedList)
     ll.print_linked_list(linkedList)
-    # linkedList = ll.delete_at_start(linkedList)
+    linkedList = ll.delete_at_start(linkedList)
     # linkedList = ll.delete_at_start(linkedList)
 
     # ll.print_linked_list(linkedList)
@@ -281,5 +332,16 @@ if __name__ == "__main__":
     print(ll.search_iterative(linkedList, 102))    
     # Search recursive
     print(ll.search_recursive(linkedList, 999))
+
+    # Get node from end
     print(ll.get_node_from_end_method_1(linkedList,3))
     print(ll.get_node_from_end_method_2(linkedList, 3))
+    
+    # search middle element
+    print(ll.print_middle(linkedList))
+
+    # swap
+    linkedList = ll.swap(linkedList, 999, 1) 
+    ll.print_linked_list(linkedList)
+
+
