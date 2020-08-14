@@ -140,8 +140,9 @@ class LinkedList:
                 node = node.next       
         return linked_list
 
-    """ --------- length of string recursive and iterative --------- """
+    """ --------- General operations ---------- """
 
+    # 1.1 Length of linked list - iterative
     def length_of_list(self, linked_list):
         print('Comparing length of linked list Iterative')
         if not linked_list:
@@ -152,14 +153,14 @@ class LinkedList:
             count +=1
             cur = cur.next
         return count
-    ## Recursion  
+    
+    # 1.1 Length of linked list - recursive
     def length_of_list_recursive(self, linked_list):
         if not linked_list:
             return 0
         return 1 + self.length_of_list_recursive(linked_list.next)
             
-    """ --------- General operations - reverse, search and sorting linked list --------- """
-    ## Reverse list
+    ## 2. Reverse list - iterative
     def reverse_list(self, linked_list):
         print('In reverse list')
         if linked_list is None:
@@ -174,13 +175,13 @@ class LinkedList:
         linked_list = temp 
         return linked_list
         
-    ## Get node by index
+    ## 3. Get node by index
     def get_node_by_index(self, linked_list, index):
         print('Getting node by index')
     
         temp = linked_list
         if index<0:
-            return 'INvalid index'
+            return 'Invalid index'
         while index>1 and temp is not None:
             temp = temp.next
             index-=1
@@ -188,6 +189,30 @@ class LinkedList:
             return 'No value at given index'
         return temp.val
 
+    ## 4.1 Search - iterative 
+    def search_iterative(self, linked_list, val):
+        if linked_list is None:
+            return False
+        temp = linked_list
+        index = 0
+        while temp:
+            index +=1
+            if temp.val == val:
+                return f'Found at index {index} by iteration'
+            temp = temp.next
+        return 'Not found'
+
+    ## 4.2 Search - recursive
+    def search_recursive(self, linked_list, val, index=0):
+        temp = linked_list
+        index+=1
+        if temp is None:
+            return 'Not found'
+        if temp.val == val:
+            return f'Found at index {index} by recursion'
+        
+        return self.search_recursive(temp.next, val, index)
+            
 if __name__ == "__main__":
     ll = LinkedList()
     linkedList = ll.insert_at_start(1)
@@ -216,3 +241,8 @@ if __name__ == "__main__":
 
     # Getting value of list by index
     print(ll.get_node_by_index(linkedList, 6))
+    
+    # Search iterative
+    print(ll.search_iterative(linkedList, 102))    
+    # Search recursive
+    print(ll.search_recursive(linkedList, 999))
