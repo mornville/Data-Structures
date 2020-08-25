@@ -257,7 +257,7 @@ class LinkedList:
             fast = fast.next.next
         return f"Middle node value is : {slow.val}"
 
-    # 6. Swap two nodes x and y by changing links
+    # 6.1 Swap two nodes x and y by changing links
     def swap(self, linked_list, x, y):
         print(' ***** Swapping *****')
         
@@ -299,6 +299,36 @@ class LinkedList:
         currX.next = currY.next
         currY.next = temp 
         return linked_list
+
+    # 6.2 Swapping pair of nodes
+    def swap_in_pairs(self, head):
+        print(' ***** Swapping *****')
+
+        if head is None or head.next is None:
+            return head
+        p1 = head
+        p2 = head.next
+        prev = None
+        next = p2.next
+        while next is not None and next.next is not None:
+            if prev is None:
+                p2.next = p1
+                p1.next = next
+                prev = head
+                p2 = p2.next.next
+                p1 = p1.next
+                next = p2.next
+                break
+        return head
+
+
+
+
+
+
+
+
+         
 if __name__ == "__main__":
     ll = LinkedList()
     linkedList = ll.insert_at_start(1)
@@ -336,12 +366,15 @@ if __name__ == "__main__":
     # Get node from end
     print(ll.get_node_from_end_method_1(linkedList,3))
     print(ll.get_node_from_end_method_2(linkedList, 3))
-    
+
     # search middle element
     print(ll.print_middle(linkedList))
 
     # swap
-    linkedList = ll.swap(linkedList, 999, 1) 
+    ll.print_linked_list(linkedList)
+
+    # linkedList = ll.swap(linkedList, 999, 1) 
+    linkedList = ll.swap_in_pairs(linkedList)
     ll.print_linked_list(linkedList)
 
 

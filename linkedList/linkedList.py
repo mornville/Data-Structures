@@ -33,7 +33,10 @@ class LinkedList:
         while(fast!=None and fast.next!=None):
             slow = slow.next
             fast = fast.next.next
-        print(slow.data)
+        itr = slow
+        while itr:
+            print(itr.data)
+            itr = itr.next
 
 if __name__ == '__main__':
     ll = LinkedList()
