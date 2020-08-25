@@ -152,7 +152,7 @@ class LinkedList:
             cur = cur.next
         return count
 
-    # 1.1 Length of linked list - recursive
+    # 1.2 Length of linked list - recursive
     def length_of_list_recursive(self, linked_list):
         if not linked_list:
             return 0
